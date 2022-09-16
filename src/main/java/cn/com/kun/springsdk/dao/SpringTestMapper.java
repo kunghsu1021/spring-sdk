@@ -1,6 +1,6 @@
-package cn.com.kun.component.demo.springtest.dao;
+package cn.com.kun.springsdk.dao;
 
-import cn.com.kun.component.demo.springtest.bean.entiy.SpringTestDO;
+import cn.com.kun.springsdk.bean.entiy.SpringTestDO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 

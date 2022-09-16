@@ -1,7 +1,7 @@
-package cn.com.kun.component.demo.springtest.service;
+package cn.com.kun.springsdk.service;
 
-import cn.com.kun.component.demo.springtest.bean.entiy.SpringTestDO;
-import cn.com.kun.component.demo.springtest.dao.SpringTestMapper;
+import cn.com.kun.springsdk.bean.entiy.SpringTestDO;
+import cn.com.kun.springsdk.dao.SpringTestMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

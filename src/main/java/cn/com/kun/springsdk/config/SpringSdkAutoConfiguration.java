@@ -1,4 +1,4 @@
-package cn.com.kun.component.demo.springtest.config;
+package cn.com.kun.springsdk.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,16 +10,16 @@ import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-@ConditionalOnProperty(prefix = "springtest.autoconfig", value = {"enabled"}, havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "springsdk.autoconfig", value = {"enabled"}, havingValue = "true", matchIfMissing = true)
 @ComponentScans(value =
-        {@ComponentScan(value = "cn.com.kun.component.demo.springtest")})
-@EntityScan(basePackages = {"cn.com.kun.component.demo.springtest"})
+        {@ComponentScan(value = "cn.com.kun.springsdk")})
+@EntityScan(basePackages = {"cn.com.kun.springsdk"})
 @Configuration
-public class SpringTestAutoConfiguration implements EnvironmentAware {
+public class SpringSdkAutoConfiguration implements EnvironmentAware {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(SpringTestAutoConfiguration.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(SpringSdkAutoConfiguration.class);
 
-    public SpringTestAutoConfiguration() {
+    public SpringSdkAutoConfiguration() {
         LOGGER.info("SpringTestAutoConfiguration自动配置初始化");
     }
 

@@ -1,4 +1,4 @@
-package cn.com.kun.component.demo.springtest.bean.entiy;
+package cn.com.kun.springsdk.bean.entiy;
 
 import java.util.Date;
 

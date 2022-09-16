@@ -1,4 +1,4 @@
 # Auto Configure
 # 推荐使用这种方式（基于自动配置的方式加载）
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.com.kun.component.demo.springtest.config.SpringTestAutoConfiguration
+  cn.com.kun.springsdk.config.SpringSdkAutoConfiguration

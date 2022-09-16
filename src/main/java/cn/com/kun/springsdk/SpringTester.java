@@ -1,4 +1,4 @@
-package cn.com.kun.component.demo.springtest;
+package cn.com.kun.springsdk;
 
 public class SpringTester {
 
