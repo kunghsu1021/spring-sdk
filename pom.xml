@@ -131,7 +131,21 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-common</artifactId>
             <version>${netty-version}</version>
-            <scope>provided</scope>
+            <!-- netty包作为强依赖包，必须引入，防止使用方没有该依赖 -->
+<!--            <scope>provided</scope>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <!-- jpa包作为强依赖包，主动引入可兼容使用方没有该依赖
+                其实也可以设置为provided,但是要求使用方必须自行引入jpa包
+                无论是否用到和jpa相关的功能，该包已经是强依赖的了，必须要有。
+                区别是由框架引入还是由使用方引入而已
+                我个人更倾向由框架负责引入，这样框架才算是一个整体 -->
+            <!--
+                        <scope>provided</scope>
+            -->
         </dependency>
 
     </dependencies>
