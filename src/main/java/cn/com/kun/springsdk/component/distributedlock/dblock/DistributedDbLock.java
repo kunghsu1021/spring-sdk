@@ -255,6 +255,7 @@ public class DistributedDbLock implements DistributedLock {
         if (res == 0){
             LOGGER.info("解锁失败，resourceName：{} requestId:{}", resourceName, requestId);
         }
+        requestIdThreadLocal.remove();
     }
 
 
