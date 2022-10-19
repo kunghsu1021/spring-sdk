@@ -1,7 +1,7 @@
 package cn.com.kun.springsdk.component.distributedlock.dblock;
 
 import cn.com.kun.springsdk.component.distributedlock.DistributedLock;
-import cn.com.kun.springsdk.component.distributedlock.dblock.dao.CustomJdbcDbLockDaoDelagate;
+import cn.com.kun.springsdk.component.distributedlock.dblock.dao.DbLockDaoDelagate;
 import cn.com.kun.springsdk.component.distributedlock.dblock.entity.DbLockDO;
 import io.netty.util.HashedWheelTimer;
 import io.netty.util.Timeout;
@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,11 +40,13 @@ public class DistributedDbLock implements DistributedLock {
     @Autowired
     private ApplicationContext applicationContext;
 
-    /**
-     * dao层
-     */
+//    @Autowired
+//    private DbLockMapper dbLockMapper;
+
+    //优先使用JPA的实现
+    @Qualifier("jpaDbLockDaoDelagate")
     @Autowired
-    private CustomJdbcDbLockDaoDelagate dbLockMapper;
+    private DbLockDaoDelagate dbLockMapper;
 
     private ThreadLocal<String> requestIdThreadLocal = new ThreadLocal<String>();
 
@@ -86,7 +89,7 @@ public class DistributedDbLock implements DistributedLock {
             return false;
         }else {
             boolean getLockFlag = false;
-            //校验是否和抢锁成功时放入的requestId一样
+            //校验是否和自己的放入的requestId一样
             if (requestId.equals(dbLockDO.getRequestId()) || StringUtils.isEmpty(dbLockDO.getRequestId())){
                 //假如为空说明已经被抢占
                 getLockFlag = true;
@@ -104,6 +107,7 @@ public class DistributedDbLock implements DistributedLock {
                 //更新DB
                 dbLockDO.setRequestId(requestId);
                 dbLockDO.setRequestTime(new Date());
+//                dbLockDO.setRequestTime(new Date(new java.util.Date().getTime()));
                 int res = dbLockMapper.updateRequestInfo(dbLockDO);
                 if (res > 0){
                     //抢锁成功，启动时间轮续锁
@@ -246,6 +250,8 @@ public class DistributedDbLock implements DistributedLock {
                 }
                 timeout.cancel();
             }
+            //必须移除时间轮任务对象
+            TIMEOUT_MAP.remove(requestId);
         }
 
         DbLockDO dbLockDO = new DbLockDO();
